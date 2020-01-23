@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Player/PlayerAnimation.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Hoppy-Days-Assets/GFX/Background/bg_layer1.png" type="Texture" id=3]
+[ext_resource path="res://Hoppy-Days-Assets/GFX/Background/bg_layer2.png" type="Texture" id=4]
+[ext_resource path="res://Hoppy-Days-Assets/GFX/Background/bg_layer3.png" type="Texture" id=5]
+[ext_resource path="res://Hoppy-Days-Assets/GFX/Background/bg_layer4.png" type="Texture" id=6]
+[ext_resource path="res://Hoppy-Days-Assets/SFX/jump1.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Hoppy-Days-Assets/SFX/pain.ogg" type="AudioStream" id=8]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 59.9978
+height = 85.6133
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 1930, 1400 )
+collision_mask = 6
+collision/safe_margin = 0.001
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+JUMP_SPEED = 4500
+GRAVITY = 150
+WORLD_LIMIT = 3000
+
+[node name="PlayerAnimation" parent="." instance=ExtResource( 2 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Camera2D2" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 3, 3 )
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D2"]
+scroll_base_offset = Vector2( 0, -1024 )
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Camera2D2/ParallaxBackground"]
+motion_mirroring = Vector2( 2048, 2048 )
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D2/ParallaxBackground/ParallaxLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 3 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Camera2D2/ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 2048, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D2/ParallaxBackground/ParallaxLayer2"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 4 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Camera2D2/ParallaxBackground"]
+motion_scale = Vector2( 0.75, 1 )
+motion_mirroring = Vector2( 2048, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D2/ParallaxBackground/ParallaxLayer3"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 5 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Camera2D2/ParallaxBackground"]
+motion_mirroring = Vector2( 2048, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D2/ParallaxBackground/ParallaxLayer4"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 6 )
+
+[node name="JumpSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="PainSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -6.282
+[connection signal="animate" from="." to="PlayerAnimation" method="_on_Player_animate"]

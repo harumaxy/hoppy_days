@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/TileSet.tres" type="TileSet" id=2]
+[ext_resource path="res://Hazards/Spike Top.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Hoppy-Days-Assets/SFX/Summer_Park.ogg" type="AudioStream" id=4]
+
+[node name="Level1" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1140, 900 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+collision_layer = 2
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 983088, 2, 0, 1048674, 0, 0, 1114151, 2, 0, 1114167, 2, 0, 1114248, 0, 0, 1376324, 1, 0, 1376348, 1, 0, 1441824, 2, 0, 1507434, 0, 0, 1638525, 0, 0, 1704008, 1, 0, 1769494, 2, 0, 1769519, 2, 0, 1835105, 0, 0, 1966093, 2, 0, 1966165, 1, 0, 1966196, 0, 0, 2031747, 0, 0, 2228224, 2, 0, 2228225, 2, 0, 2228226, 2, 0, 2228227, 2, 0, 2228228, 2, 0, 2228229, 2, 0, 2228230, 2, 0, 2228231, 2, 0, 2228232, 2, 0, 2228233, 2, 0, 2228234, 2, 0, 2228235, 2, 0, 2228236, 2, 0, 2228237, 2, 0, 2228238, 2, 0, 2228239, 2, 0, 2228240, 2, 0, 2228241, 2, 0, 2228242, 2, 0, 2228243, 2, 0, 2228244, 2, 0, 2228245, 2, 0, 2228246, 2, 0, 2228247, 2, 0, 2228248, 2, 0, 2228249, 2, 0, 2228250, 2, 0, 2228251, 2, 0, 2228252, 2, 0, 2228253, 2, 0, 2228254, 2, 0, 2228255, 2, 0, 2228256, 2, 0, 2228257, 2, 0, 2228258, 2, 0, 2228259, 2, 0, 2228260, 2, 0, 2228261, 2, 0, 2228262, 2, 0, 2228263, 2, 0, 2228264, 2, 0, 2228265, 2, 0, 2228266, 2, 0, 2228267, 2, 0, 2228268, 2, 0, 2228269, 2, 0, 2228270, 2, 0, 2228271, 2, 0, 2228272, 2, 0, 2228273, 2, 0, 2228274, 2, 0, 2228275, 2, 0, 2228276, 2, 0, 2228277, 2, 0, 2228278, 2, 0, 2228279, 2, 0, 2228280, 2, 0, 2228281, 2, 0, 2228282, 2, 0, 2228301, 1, 0, 2424922, 0, 0, 2490492, 0, 0, 2818129, 0, 0, 2883716, 0, 0 )
+
+[node name="Hazards" type="Node" parent="."]
+
+[node name="Spike Top" parent="Hazards" instance=ExtResource( 3 )]
+position = Vector2( 1569.39, 1703.46 )
+
+[node name="Spike Top2" parent="Hazards" instance=ExtResource( 3 )]
+position = Vector2( 2194.13, 1380.36 )
+
+[node name="Spike Top3" parent="Hazards" instance=ExtResource( 3 )]
+position = Vector2( 1905.11, 2148.98 )
+
+[node name="Spike Top4" parent="Hazards" instance=ExtResource( 3 )]
+position = Vector2( 2515.97, 2151.51 )
+
+[node name="Spike Top5" parent="Hazards" instance=ExtResource( 3 )]
+position = Vector2( 3053.62, 2147.72 )
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -9.154
+autoplay = true
