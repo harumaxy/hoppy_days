@@ -22,7 +22,7 @@ func _physics_process(delta):
 
 func apply_gravity():
 	if position.y > WORLD_LIMIT:
-		end_game()
+		get_tree().call_group("GameState", "end_game")
 	if is_on_floor():
 		motion.y = 0
 	if is_on_ceiling():
@@ -37,7 +37,7 @@ func move():
 		motion.x = SPEED
 	else:
 		# 滑る動き
-		motion.x *= 0
+		motion.x = 0
 
 func jump():
 	if Input.is_action_pressed("jump") and is_on_floor():
@@ -48,16 +48,20 @@ signal animate
 
 func animate():
 	emit_signal("animate", motion)
-
-
-func end_game():
-	get_tree().change_scene("res://Levels/EndGame.tscn") 
 	
 func hurt():
-	position.y -= 10
+	position.y -= 10 
 	yield(get_tree(), "idle_frame")
 	motion.y = -(JUMP_SPEED)
-	lives -= 1
 	$PainSFX.play()
-	if lives <= 0:
-		end_game()
+#	lives -= 1
+#	if lives <= 0:
+#		end_game()
+
+export var boost_multipliyer = 1.5
+
+func boost():
+	position.y -= 10
+	yield(get_tree(), "idle_frame")
+	motion.y -= JUMP_SPEED * boost_multipliyer
+	
