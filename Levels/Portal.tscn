@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Levels/Portal.gd" type="Script" id=1]
 [ext_resource path="res://Hoppy-Days-Assets/GFX/Items/portal_yellow.png" type="Texture" id=2]
+[ext_resource path="res://Hoppy-Days-Assets/GFX/Particles/portal_yellowParticle.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 115.312, 40.9982 )
@@ -25,12 +26,15 @@ tracks/0/keys = {
 }
 
 [sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 107.22
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 100.0
-orbit_velocity = 0.0
+angular_velocity = 1.4013e-45
+orbit_velocity = 0.2
 orbit_velocity_random = 0.0
+radial_accel = -100.0
 
 [node name="Portal" type="Node2D"]
 script = ExtResource( 1 )
@@ -53,6 +57,8 @@ anims/PortalStreach = SubResource( 2 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 scale = Vector2( 1.08315, 1 )
-amount = 2000
+amount = 20
+explosiveness = 0.27
 process_material = SubResource( 3 )
+texture = ExtResource( 3 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
