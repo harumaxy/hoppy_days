@@ -23,10 +23,10 @@ func _physics_process(delta):
 func apply_gravity():
 	if position.y > WORLD_LIMIT:
 		get_tree().call_group("GameState", "end_game")
-	if is_on_floor():
+	if is_on_floor() and motion.y > 0:
 		motion.y = 0
-	if is_on_ceiling():
-		motion.y = 10
+	if is_on_ceiling() and motion.y < 0:
+		motion.y = 1
 	else:
 		motion.y += GRAVITY
 		
@@ -50,13 +50,13 @@ func animate():
 	emit_signal("animate", motion)
 	
 func hurt():
-	position.y -= 10 
+	# GameStateから呼ばれるので、呼び出し遅延のせいでうまく行かない可能性がある。idle_frameを駆使してプロパティが変わらないようにする。
+	yield(get_tree(), "idle_frame")
+	position.y -= 10
 	yield(get_tree(), "idle_frame")
 	motion.y = -(JUMP_SPEED)
 	$PainSFX.play()
-#	lives -= 1
-#	if lives <= 0:
-#		end_game()
+
 
 export var boost_multipliyer = 1.5
 
@@ -65,3 +65,5 @@ func boost():
 	yield(get_tree(), "idle_frame")
 	motion.y -= JUMP_SPEED * boost_multipliyer
 	
+
+
